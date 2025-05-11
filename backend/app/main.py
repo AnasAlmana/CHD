@@ -11,6 +11,7 @@ origins = [
     "http://127.0.0.1:8080",
     "http://localhost:5173",  # optional: if using Vite
     "http://127.0.0.1:5173",
+    "https://chd-aomr6htf3-anas-projects-335f1227.vercel.app",
 ]
 
 app.add_middleware(
