@@ -73,11 +73,7 @@ const Upload = () => {
         body: formData,
       });
       
-      const data = await response.json();
-      console.log(data);
-
-
-      console.log("Backend response status:", response.status);
+      
 
       if (!response.ok) {
         const errorText = await response.text();

@@ -1,6 +1,6 @@
 import torch
+from torchvision import models
 import torch.nn as nn
-import torchxrayvision as xrv
 from torchvision import transforms
 from PIL import Image
 import torch.nn.functional as F
@@ -11,17 +11,11 @@ class CHDModel:
         self.device = torch.device(device)
 
         # Rebuild the exact model architecture
-        base_model = xrv.models.DenseNet(weights="densenet121-res224-all")
-        self.model = nn.Sequential(
-            base_model.features,
-            nn.AdaptiveAvgPool2d((1, 1)),
-            nn.Flatten(),
-            nn.Linear(1024, 4)  # 4 classes: ASD, Normal, PDA, VSD
+        self.model = models.resnet50(pretrained=True)
+        self.model.fc = nn.Sequential(
+            nn.Dropout(0.4),
+            nn.Linear(self.model.fc.in_features, 4)
         )
-
-        # Optional: freeze backbone
-        for param in self.model[0].parameters():
-            param.requires_grad = False
 
         # Load weights
         state_dict = torch.load(model_path, map_location=self.device)
@@ -32,8 +26,9 @@ class CHDModel:
         # Image transform (for grayscale images)
         self.transform = transforms.Compose([
             transforms.Resize((224, 224)),
+            transforms.Grayscale(num_output_channels=3),
             transforms.ToTensor(),
-            transforms.Normalize([0.5], [0.5]),
+            transforms.Normalize([0.5], [0.5])
         ])
 
         self.idx_to_class = {0: 'ASD', 1: 'Normal', 2: 'PDA', 3: 'VSD'}
