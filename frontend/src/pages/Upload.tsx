@@ -68,7 +68,7 @@ const Upload = () => {
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await fetch("https://chd-backend.onrender.com/predict", {
+      const response = await fetch("http://localhost:8000/predict", {
         method: "POST",
         body: formData,
       });
