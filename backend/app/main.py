@@ -3,6 +3,7 @@ from PIL import Image
 from app.inference import CHDModel
 from app.config import settings
 from fastapi.middleware.cors import CORSMiddleware
+from datetime import datetime
 
 app = FastAPI()
 
@@ -23,9 +24,24 @@ app.add_middleware(
 )
 model = CHDModel(settings.model_path)
 
+# In-memory history storage
+prediction_history = []
+
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
     image = Image.open(file.file).convert("L")
     result = model.predict(image)
+    # Add timestamp and store in history (exclude gradcam for history, or keep as needed)
+    record = {
+        "result": result["prediction"],
+        "confidence": result["confidence"],
+        "timestamp": datetime.utcnow().isoformat() + "Z",
+        # Optionally: "gradcam": result["gradcam"]
+    }
+    prediction_history.append(record)
     print(result)
-    return result  
+    return result
+
+@app.get("/history")
+def get_history():
+    return prediction_history  
