@@ -1,6 +1,6 @@
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
-    model_path: str = "models/chd_model_weights.pth"
+    model_path: str = "models/resnet50_chd_model.pth"
 
 settings = Settings()
