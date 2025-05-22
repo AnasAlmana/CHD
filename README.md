@@ -79,7 +79,8 @@ docker run -p 8000:8000 chd-backend
 
 ```bash
 cd frontend
-streamlit run app.py
+npm install
+npm run dev
 ```
 
 ---
