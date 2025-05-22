@@ -9,7 +9,7 @@ This project presents a complete AI-based system for the **early detection of Co
 Congenital Heart Defects are the most common type of birth defect globally. However:
 
 - Early detection is challenging, especially in infants
-- There’s a shortage of experienced pediatric cardiologists
+- There's a shortage of experienced pediatric cardiologists
 - Conventional diagnostic tools (e.g., MRI, echocardiograms) are expensive and expert-dependent
 
 This system offers an affordable, AI-assisted diagnostic pipeline deployable in rural clinics, mobile screening units, or telemedicine platforms.
@@ -60,6 +60,21 @@ CHD/
 
 ## 🚀 Running the Project
 
+### 🐳 Using Docker Compose (Recommended)
+
+The easiest way to run the entire project is using Docker Compose:
+
+```bash
+# Clone the repository
+git clone https://github.com/AnasAlmana/CHD.git
+cd CHD
+
+# Build and start all services
+docker-compose up --build
+```
+
+This will start both the frontend and backend services. The frontend will be available at `http://localhost:3000` and the backend API at `http://localhost:8000`.
+
 ### ⚙️ Backend
 
 ```bash
@@ -104,4 +119,4 @@ npm run dev
 ---
 
 
-> ✨ *“Early detection saves lives — let AI lend a hand where it’s needed most.”*
+> ✨ *"Early detection saves lives — let AI lend a hand where it's needed most."*
