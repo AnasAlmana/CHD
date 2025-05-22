@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,6 +9,7 @@ interface PredictionResult {
   result: string;
   confidence: number;
   timestamp: string;
+  gradcam?: string;
 }
 
 const Upload = () => {
@@ -88,6 +88,7 @@ const Upload = () => {
         result: data.prediction,
         confidence: data.confidence ?? 99.0,
         timestamp: new Date().toISOString(),
+        gradcam: data.gradcam,
       };
 
       console.log("📦 Parsed Result:", parsedResult);
@@ -195,6 +196,17 @@ const Upload = () => {
             ) : (
               <div className="border rounded-lg p-10 w-full flex items-center justify-center mb-4 bg-muted/20">
                 <p className="text-muted-foreground">No image preview</p>
+              </div>
+            )}
+            
+            {/* Grad-CAM Heatmap Display */}
+            {result?.gradcam && (
+              <div className="mb-4 border rounded-lg overflow-hidden w-full max-h-64 flex items-center justify-center">
+                <img
+                  src={`data:image/png;base64,${result.gradcam}`}
+                  alt="Grad-CAM Heatmap"
+                  className="max-w-full max-h-64 object-contain"
+                />
               </div>
             )}
             
