@@ -183,67 +183,63 @@ const Upload = () => {
               Image preview and classification results
             </CardDescription>
           </CardHeader>
-          <CardContent className="flex flex-col items-center">
-            {result && <pre className="text-left w-full text-sm bg-gray-100 p-2 rounded">{JSON.stringify(result, null, 2)}</pre>}
-            {preview ? (
-              <div className="border rounded-lg overflow-hidden w-full max-h-64 flex items-center justify-center mb-4">
-                <img
-                  src={preview}
-                  alt="Preview"
-                  className="max-w-full max-h-64 object-contain"
-                />
-              </div>
-            ) : (
-              <div className="border rounded-lg p-10 w-full flex items-center justify-center mb-4 bg-muted/20">
-                <p className="text-muted-foreground">No image preview</p>
-              </div>
-            )}
-            
-            {/* Grad-CAM Heatmap Display */}
-            {result?.gradcam && (
-              <div className="mb-4 border rounded-lg overflow-hidden w-full max-h-64 flex items-center justify-center">
-                <img
-                  src={`data:image/png;base64,${result.gradcam}`}
-                  alt="Grad-CAM Heatmap"
-                  className="max-w-full max-h-64 object-contain"
-                />
-              </div>
-            )}
-            
-            {result && (
-              <Card className={`w-full ${
-                result.result === "normal" ? "bg-medical-normal/10" : "bg-medical-abnormal/10"
-              }`}>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-lg">Classification Result</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2">
-                    <div>
-                      <div className="text-sm font-medium">Diagnosis:</div>
-                      <div className={`text-lg font-bold ${
-                        result.result === "normal" ? "text-medical-normal" : "text-medical-abnormal"
-                      }`}>
-                        {result.result.toUpperCase()}
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <div className="text-sm font-medium">Confidence:</div>
-                      <div>{result.confidence.toFixed(2)}%</div>
-                    </div>
-                    
-                    <div>
-                      <div className="text-sm font-medium">Time:</div>
-                      <div>
-                        {new Date(result.timestamp).toLocaleString()}
-                      </div>
+          {preview ? (
+            <div className="border rounded-lg overflow-hidden w-full max-h-64 flex items-center justify-center mb-4">
+              <img
+                src={preview}
+                alt="Preview"
+                className="max-w-full max-h-64 object-contain"
+              />
+            </div>
+          ) : (
+            <div className="border rounded-lg p-10 w-full flex items-center justify-center mb-4 bg-muted/20">
+              <p className="text-muted-foreground">No image preview</p>
+            </div>
+          )}
+          
+          {result?.gradcam && (
+            <div className="mb-4 border rounded-lg overflow-hidden w-full max-h-64 flex items-center justify-center">
+              <img
+                src={`data:image/png;base64,${result.gradcam}`}
+                alt="Grad-CAM Heatmap"
+                className="max-w-full max-h-64 object-contain"
+              />
+            </div>
+          )}
+          
+          {result && (
+            <Card className={`w-full ${
+              result.result === "normal" ? "bg-medical-normal/10" : "bg-medical-abnormal/10"
+            }`}>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg">Classification Result</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  <div>
+                    <div className="text-sm font-medium">Diagnosis:</div>
+                    <div className={`text-lg font-bold ${
+                      result.result === "normal" ? "text-medical-normal" : "text-medical-abnormal"
+                    }`}>
+                      {result.result.toUpperCase()}
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            )}
-          </CardContent>
+                  
+                  <div>
+                    <div className="text-sm font-medium">Confidence:</div>
+                    <div>{result.confidence.toFixed(2)}%</div>
+                  </div>
+                  
+                  <div>
+                    <div className="text-sm font-medium">Time:</div>
+                    <div>
+                      {new Date(result.timestamp).toLocaleString()}
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </Card>
       </div>
     </div>
