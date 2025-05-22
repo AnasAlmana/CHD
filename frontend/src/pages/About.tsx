@@ -1,163 +1,143 @@
-
 import React from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
-import { Heart, HeartPulse, Info } from "lucide-react";
+import { Info } from "lucide-react";
 
 const About = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">About the Model</h1>
+        <h1 className="text-2xl font-bold tracking-tight">🧠 About the Model</h1>
         <p className="text-muted-foreground">
-          Learn how our AI classification system works
+          Explore how our AI model helps detect Congenital Heart Disease from medical images.
         </p>
       </div>
-      
       <Card>
         <CardHeader>
-          <div className="flex items-center gap-2">
-            <HeartPulse className="h-6 w-6 text-medical-abnormal" />
-            <CardTitle>CHD Image Classification Model</CardTitle>
-          </div>
+          <CardTitle>❤️ CHD Image Classification System</CardTitle>
           <CardDescription>
-            Artificial Intelligence for Congenital Heart Disease Detection
+            Artificial Intelligence for Accurate and Early Detection of Congenital Heart Defects
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div>
-            <h3 className="text-lg font-medium mb-2">Overview</h3>
-            <p className="text-muted-foreground">
-              Our Congenital Heart Disease (CHD) Image Classifier is an advanced artificial intelligence system 
-              designed to assist medical professionals in the early detection and diagnosis of heart defects from 
-              medical imaging. The model analyzes cardiac images and provides predictions with confidence scores 
-              to help identify potential abnormalities.
+            <p className="text-muted-foreground mb-2">
+              Our CHD Image Classifier is an AI-powered tool designed to assist healthcare professionals in detecting congenital heart defects from pediatric chest X-rays. The system can classify the following conditions:
+            </p>
+            <ul className="list-disc pl-6 space-y-1 text-muted-foreground">
+              <li>Normal</li>
+              <li>Atrial Septal Defect (ASD)</li>
+              <li>Ventricular Septal Defect (VSD)</li>
+              <li>Patent Ductus Arteriosus (PDA)</li>
+            </ul>
+            <p className="text-muted-foreground mt-2">
+              It provides predictions along with confidence scores, offering an assistive second opinion to guide diagnosis.
             </p>
           </div>
-          
           <Separator />
-          
           <div>
-            <h3 className="text-lg font-medium mb-2">Model Architecture</h3>
-            <p className="text-muted-foreground mb-4">
-              The CHD Image Classifier uses a deep convolutional neural network (CNN) architecture specifically 
-              optimized for medical image analysis. The model includes:
+            <h3 className="text-lg font-medium mb-2">🧬 Model Architecture</h3>
+            <p className="text-muted-foreground mb-2">
+              The model uses a deep Convolutional Neural Network (CNN) tailored for medical imaging tasks:
             </p>
-            <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-              <li>A backbone network based on ResNet-50 architecture with modifications for medical imaging</li>
-              <li>Feature pyramid network for multi-scale feature extraction</li>
-              <li>Attention mechanisms to focus on relevant cardiac structures</li>
-              <li>Specialized layers for handling DICOM medical image formats</li>
+            <ul className="list-disc pl-6 space-y-1 text-muted-foreground">
+              <li><b>Backbone:</b> ResNet-50 pretrained on ImageNet, fine-tuned for CHD X-rays</li>
+              <li><b>Input:</b> Single-channel grayscale X-ray images resized to 224×224</li>
+              <li><b>Preprocessing:</b> CLAHE (Contrast Limited Adaptive Histogram Equalization) applied to enhance contrast</li>
+              <li><b>Augmentations:</b> Rotation, flipping, brightness/contrast changes</li>
+              <li><b>Loss Function:</b> Focal Loss with Label Smoothing for class imbalance handling</li>
+              <li><b>Output Layer:</b> Four-class softmax classification head</li>
             </ul>
           </div>
-          
           <Separator />
-          
           <div>
-            <h3 className="text-lg font-medium mb-2">Training Data</h3>
-            <p className="text-muted-foreground mb-4">
-              The model was trained on a diverse dataset of cardiac images:
+            <h3 className="text-lg font-medium mb-2">📁 Training Data & GAN Augmentation</h3>
+            <p className="text-muted-foreground mb-2">
+              To train a high-performing model despite limited real-world samples, we combined original and synthetic data:
             </p>
-            <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-              <li>Over 50,000 labeled cardiac images from multiple medical centers</li>
-              <li>Balanced representation of normal and various CHD conditions</li>
-              <li>Images include echocardiograms, MRIs, and CT scans</li>
-              <li>Data augmentation techniques to improve model generalization</li>
-              <li>Expert cardiologist annotations and validations</li>
+            <ul className="list-disc pl-6 space-y-1 text-muted-foreground">
+              <li><b>Real Dataset:</b> 4,500+ labeled pediatric chest X-rays</li>
+              <li><b>Classes Covered:</b> ASD, VSD, PDA, and Normal</li>
+              <li><b>Synthetic Samples:</b> Trained <b>Generative Adversarial Networks (GANs)</b> to produce high-quality, class-specific chest X-ray images to augment rare conditions like PDA and ASD.</li>
+              <li><b>Data Split:</b>
+                <ul className="list-disc pl-6 space-y-1">
+                  <li>70% Training</li>
+                  <li>20% Validation</li>
+                  <li>10% Testing</li>
+                </ul>
+              </li>
             </ul>
           </div>
-          
           <Separator />
-          
           <div>
-            <h3 className="text-lg font-medium mb-2">Performance and Validation</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-              <Card className="bg-medical-blue/10">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base">Accuracy</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <span className="text-2xl font-bold">94.2%</span>
-                </CardContent>
-              </Card>
-              
-              <Card className="bg-medical-blue/10">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base">Sensitivity</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <span className="text-2xl font-bold">92.7%</span>
-                </CardContent>
-              </Card>
-              
-              <Card className="bg-medical-blue/10">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base">Specificity</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <span className="text-2xl font-bold">95.1%</span>
-                </CardContent>
-              </Card>
+            <h3 className="text-lg font-medium mb-2">📊 Model Performance</h3>
+            <p className="text-muted-foreground mb-2">
+              The ResNet-50 model was trained for 10 epochs with the best performance saved at epoch 9:
+            </p>
+            <div className="overflow-x-auto">
+              <table className="min-w-[300px] text-sm border mb-4">
+                <thead>
+                  <tr className="bg-muted">
+                    <th className="px-2 py-1 border">Metric</th>
+                    <th className="px-2 py-1 border">Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="px-2 py-1 border font-medium">Best Validation Accuracy</td>
+                    <td className="px-2 py-1 border">76.04%</td>
+                  </tr>
+                  <tr>
+                    <td className="px-2 py-1 border font-medium">Final Training Accuracy</td>
+                    <td className="px-2 py-1 border">99.53%</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div className="font-medium mb-1">Per-Class Validation Accuracy</div>
+              <table className="min-w-[200px] text-sm border">
+                <thead>
+                  <tr className="bg-muted">
+                    <th className="px-2 py-1 border">Class</th>
+                    <th className="px-2 py-1 border">Accuracy</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="px-2 py-1 border">ASD</td>
+                    <td className="px-2 py-1 border">72.89%</td>
+                  </tr>
+                  <tr>
+                    <td className="px-2 py-1 border">Normal</td>
+                    <td className="px-2 py-1 border">87.80%</td>
+                  </tr>
+                  <tr>
+                    <td className="px-2 py-1 border">PDA</td>
+                    <td className="px-2 py-1 border">63.49%</td>
+                  </tr>
+                  <tr>
+                    <td className="px-2 py-1 border">VSD</td>
+                    <td className="px-2 py-1 border">80.24%</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <p className="text-muted-foreground">
-              The model underwent rigorous validation using 5-fold cross-validation and was tested on an 
-              independent test set from separate medical institutions not included in the training data.
-            </p>
           </div>
-          
           <Separator />
-          
           <div>
-            <h3 className="text-lg font-medium mb-2">Limitations and Considerations</h3>
-            <div className="rounded-md bg-muted/50 p-4 mb-4">
-              <div className="flex gap-2 items-start">
-                <Info className="h-5 w-5 mt-0.5 text-medical-blue-dark" />
-                <div>
-                  <h4 className="font-medium">Important Medical Disclaimer</h4>
-                  <p className="text-sm text-muted-foreground">
-                    This tool is designed to assist medical professionals, not replace them. All predictions should be 
-                    verified by qualified healthcare providers. This is not a medical device and is not FDA approved.
-                  </p>
-                </div>
+            <h3 className="text-lg font-medium mb-2">⚠️ Limitations & Medical Disclaimer</h3>
+            <div className="rounded-md bg-muted/50 p-4 mb-4 flex gap-2 items-start">
+              <Info className="h-5 w-5 mt-0.5 text-medical-blue-dark" />
+              <div>
+                <span className="font-medium">This tool is not a medical device and is not FDA approved.</span> It is intended as an assistive tool for professionals and should not be used for direct diagnosis or treatment decisions.
               </div>
             </div>
-            <p className="text-muted-foreground mb-4">
-              Users should be aware of the following limitations:
-            </p>
-            <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-              <li>Performance may vary for rare CHD conditions with limited training examples</li>
-              <li>Image quality significantly affects prediction accuracy</li>
-              <li>The model works best with standard imaging protocols</li>
-              <li>Patient demographics may affect model performance if they differ significantly from the training population</li>
+            <div className="text-muted-foreground mb-2">Limitations to consider:</div>
+            <ul className="list-disc pl-6 space-y-1 text-muted-foreground">
+              <li>Rare CHD types not present in training may be misclassified</li>
+              <li>Image quality significantly affects prediction performance</li>
+              <li>Performance is optimized for pediatric patients and may not generalize to adults</li>
+              <li>GAN-generated images enhance training but are not substitutes for diverse real-world data</li>
             </ul>
-          </div>
-          
-          <Separator />
-          
-          <div>
-            <h3 className="text-lg font-medium mb-2">Development Team</h3>
-            <p className="text-muted-foreground">
-              This model was developed by a multidisciplinary team of cardiologists, medical imaging specialists, 
-              and AI researchers committed to improving early detection of congenital heart defects.
-            </p>
-            <div className="flex flex-wrap gap-2 mt-4">
-              <Badge variant="outline" className="text-medical-blue-dark border-medical-blue-dark">
-                <Heart className="h-3 w-3 mr-1" /> Cardiology
-              </Badge>
-              <Badge variant="outline" className="text-medical-blue-dark border-medical-blue-dark">
-                <Heart className="h-3 w-3 mr-1" /> Medical Imaging
-              </Badge>
-              <Badge variant="outline" className="text-medical-blue-dark border-medical-blue-dark">
-                <Heart className="h-3 w-3 mr-1" /> Machine Learning
-              </Badge>
-              <Badge variant="outline" className="text-medical-blue-dark border-medical-blue-dark">
-                <Heart className="h-3 w-3 mr-1" /> Data Science
-              </Badge>
-              <Badge variant="outline" className="text-medical-blue-dark border-medical-blue-dark">
-                <Heart className="h-3 w-3 mr-1" /> Pediatric Cardiology
-              </Badge>
-            </div>
           </div>
         </CardContent>
       </Card>
